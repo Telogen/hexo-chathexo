@@ -1,0 +1,3 @@
+# npm pack ignore list (files 白名单已在 package.json 中声明)
+*.log
+.DS_Store

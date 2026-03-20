@@ -1,0 +1,39 @@
+{
+  "name": "hexo-chathexo",
+  "version": "0.1.1",
+  "description": "ChatHexo Hexo plugin – AI chat assistant for your Hexo blog",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "src"
+  ],
+  "scripts": {
+    "prepublishOnly": "npm pack --dry-run"
+  },
+  "keywords": [
+    "hexo",
+    "hexo-plugin",
+    "chat",
+    "ai"
+  ],
+  "peerDependencies": {
+    "hexo": "^7.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Telogen/hexo-chathexo.git",
+    "directory": "hexo-chathexo"
+  },
+  "bugs": {
+    "url": "https://github.com/Telogen/hexo-chathexo/issues"
+  },
+  "homepage": "https://github.com/Telogen/hexo-chathexo",
+  "author": "Tian Lejin",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

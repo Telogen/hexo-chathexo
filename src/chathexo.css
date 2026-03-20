@@ -1,0 +1,323 @@
+#chathexo-toggle {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 10000;
+  border: 0;
+  border-radius: 999px;
+  padding: 13px 18px;
+  color: #fff;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.32);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+#chathexo-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 82px;
+  width: min(420px, calc(100vw - 24px));
+  height: min(72vh, 700px);
+  display: none;
+  flex-direction: column;
+  z-index: 10000;
+  background: #ffffff;
+  color: #1f2937;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+#chathexo-panel.open { display: flex; }
+
+.chathexo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.chathexo-title { font-weight: 800; font-size: 15px; color: #111827; }
+.chathexo-subtitle { color: #6b7280; font-size: 12px; margin-top: 2px; }
+.chathexo-close {
+  border: 0; background: transparent; color: #6b7280; cursor: pointer; font-size: 18px;
+}
+.chathexo-close:hover { color: #111827; }
+
+#chathexo-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chathexo-msg {
+  max-width: 88%;
+  padding: 12px 14px;
+  border-radius: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.chathexo-msg.user { align-self: flex-end; background: #2563eb; color: white; }
+.chathexo-msg.bot { 
+  align-self: flex-start; 
+  background: #f3f4f6; 
+  color: #1f2937;
+  line-height: 1.5;
+}
+.chathexo-msg .meta { display: block; margin-bottom: 8px; color: #6b7280; font-size: 12px; }
+
+.chathexo-msg.tool-calls {
+  max-width: 92%;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 10px 12px;
+}
+
+.tool-calls-header {
+  font-weight: 700;
+  font-size: 13px;
+  color: #2563eb;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tool-calls-header:hover {
+  color: #1d4ed8;
+}
+
+.toggle-icon {
+  font-size: 10px;
+  margin-left: 6px;
+}
+
+.tool-calls-content {
+  margin-top: 8px;
+}
+
+.tool-call-item {
+  margin-top: 8px;
+  padding: 8px 10px;
+  background: #ffffff;
+  border-radius: 6px;
+  border-left: 3px solid #3b82f6;
+}
+
+.tool-call-text {
+  font-size: 11px;
+  color: #4b5563;
+  font-family: 'Courier New', monospace;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+
+.tool-call-result {
+  font-size: 11px;
+  color: #6b7280;
+  background: #f9fafb;
+  padding: 8px;
+  border-radius: 4px;
+  margin-top: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'Courier New', monospace;
+}
+
+.chathexo-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 14px 12px;
+}
+
+.chathexo-chip {
+  border: 1px solid #e5e7eb;
+  color: #374151;
+  background: #ffffff;
+  border-radius: 999px;
+  padding: 8px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.chathexo-chip:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.chathexo-form {
+  border-top: 1px solid #e5e7eb;
+  padding: 12px;
+  background: #ffffff;
+}
+
+.chathexo-form textarea {
+  width: 100%;
+  min-height: 86px;
+  resize: vertical;
+  box-sizing: border-box;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  color: #1f2937;
+  padding: 12px;
+  outline: none;
+}
+
+.chathexo-form textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.chathexo-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.chathexo-model-toggle {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #ffffff;
+  color: #1f2937;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chathexo-model-toggle:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.chathexo-model-toggle .model-label {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.chathexo-model-toggle .chathexo-current-model {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.chathexo-hint { color: #6b7280; font-size: 12px; flex: 1; }
+.chathexo-send {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.chathexo-model-selector {
+  position: fixed;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 99999;
+  min-width: 200px;
+}
+
+.model-selector-list {
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.model-item {
+  padding: 6px 14px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.model-item:last-child {
+  border-bottom: none;
+}
+
+.model-item:hover {
+  background: #f9fafb;
+}
+
+.model-item.active {
+  background: #eff6ff;
+}
+
+.model-name {
+  font-size: 12px;
+  color: #1f2937;
+}
+
+.model-check {
+  color: #2563eb;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* ChatHexo Markdown 排版压紧（仅 bot 消息） */
+.chathexo-msg.bot { white-space: normal; }
+
+/* 段与段之间的默认间距压缩（p、blockquote、pre 等块元素） */
+.chathexo-msg.bot :where(p, blockquote, pre, table) {
+  margin: 0.35em 0;
+}
+
+.chathexo-msg.bot :where(h1, h2, h3, h4, h5, h6) {
+  margin: 0.45em 0 0.3em;
+}
+
+/* 列表整体间距 */
+.chathexo-msg.bot :where(ul, ol) {
+  margin: 0.3em 0;
+  padding-left: 1.2em;
+}
+
+/* 嵌套列表更紧凑 */
+.chathexo-msg.bot :where(ul, ol) :where(ul, ol) {
+  margin: 0.2em 0;
+  padding-left: 1.1em;
+}
+
+/* 列表项间距 */
+.chathexo-msg.bot li { margin: 0.12em 0; }
+
+/* 解决 li 内部 p 默认 margin 导致“空行感” */
+.chathexo-msg.bot li > p { margin: 0; }
+
+.chathexo-msg.bot pre,
+.chathexo-msg.bot code {
+  white-space: pre-wrap;
+}
+
+@media (max-width: 640px) {
+  #chathexo-panel { left: 12px; right: 12px; width: auto; height: 76vh; bottom: 76px; }
+  #chathexo-toggle { right: 12px; bottom: 12px; }
+}
