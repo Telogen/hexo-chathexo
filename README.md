@@ -33,9 +33,7 @@ Frontend assets are injected automatically during `hexo generate`.
 
 The backend service must be started and configured separately in the `chathexo-server` project.
 
-Backend configuration:
-- `../chathexo-server/README.md` in this repository
-- Or the standalone backend repo: [chathexo-server](https://github.com/Telogen/chathexo-server)
+Backend configuration: https://github.com/Telogen/chathexo-server
 
 After the backend is running and the reverse proxy is configured, run:
 

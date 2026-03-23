@@ -6,10 +6,9 @@
   const subtitle = getMeta('chathexo-subtitle', '基于博客知识库的 AI 助手');
 
   let indexCache = null;
-  let threadId = null; // 会话 ID
-  let markedReady = false;
-  let currentModel = null; // 当前选择的模型
-  let availableModels = []; // 可用模型列表
+  let threadId = null;
+  let currentModel = null;
+  let availableModels = [];
 
   // 引入 marked.js 用于 Markdown 渲染，使用多个 CDN 备用
   function loadMarked() {
@@ -30,7 +29,6 @@
       const script = document.createElement('script');
       script.src = cdns[currentIndex];
       script.onload = () => {
-        markedReady = true;
         console.log('marked.js 加载成功:', cdns[currentIndex]);
       };
       script.onerror = () => {
@@ -190,7 +188,7 @@
       content.className = 'tool-calls-content';
       content.style.display = 'none'; // 默认折叠
       
-      toolCalls.forEach((call, idx) => {
+      toolCalls.forEach((call) => {
         const callDiv = document.createElement('div');
         callDiv.className = 'tool-call-item';
         
@@ -414,7 +412,16 @@
     });
   }
 
-  const mount = () => boot();
+  function reportVisit() {
+    const visitApi = api.replace(/\/chat$/, '/visit');
+    fetch(visitApi, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pageUrl: window.location.href })
+    }).catch(() => {});
+  }
+
+  const mount = () => { reportVisit(); boot(); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount, { once: true });
   else mount();
   document.addEventListener('pjax:complete', mount);
