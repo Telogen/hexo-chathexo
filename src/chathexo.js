@@ -1,11 +1,9 @@
 (() => {
   const getMeta = (name, fallback = '') => document.querySelector(`meta[name="${name}"]`)?.content || fallback;
   const api = getMeta('chathexo-api', '/chathexo-api/chat');
-  const indexUrl = getMeta('chathexo-index', '/chathexo/index.json');
   const title = getMeta('chathexo-title', '博客问答');
   const subtitle = getMeta('chathexo-subtitle', '基于博客知识库的 AI 助手');
 
-  let indexCache = null;
   let threadId = null;
   let currentModel = null;
   let availableModels = [];
@@ -47,17 +45,6 @@
   // 生成唯一的 thread_id
   function generateThreadId() {
     return 'thread_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-  }
-
-  async function loadIndex() {
-    if (indexCache) return indexCache;
-    try {
-      const res = await fetch(indexUrl);
-      indexCache = await res.json();
-      return indexCache;
-    } catch (err) {
-      return { posts: [] };
-    }
   }
 
   // 加载可用模型列表
@@ -315,30 +302,6 @@
       threadId = generateThreadId();
     }
 
-    async function localFallback(query) {
-      const index = await loadIndex();
-      const posts = index.posts || [];
-      const q = query.toLowerCase();
-      const matches = posts.filter(post => {
-        const text = `${post.title}\n${post.raw || ''}\n${post.excerpt || ''}`.toLowerCase();
-        return text.includes(q);
-      }).slice(0, 5);
-
-      if (!matches.length) {
-        return {
-          answer: '没有在本地索引里找到明显相关的文章。你可以换个问法，或者稍后确认后端 RAG 服务是否已启动。',
-          mode: 'fallback',
-          sources: []
-        };
-      }
-
-      return {
-        answer: matches.map((p, i) => `${i + 1}. ${p.title}\n${p.url}`).join('\n\n'),
-        mode: 'fallback',
-        sources: matches.map(p => ({ title: p.title, path: p.path }))
-      };
-    }
-
     async function sendQuery(query) {
       const q = query.trim();
       if (!q) return;
@@ -355,7 +318,6 @@
             query: q, 
             thread_id: threadId,
             model: currentModel,
-            indexUrl: new URL(indexUrl, window.location.origin).href 
           })
         });
         const data = await res.json();
@@ -391,10 +353,8 @@
         messages.appendChild(answerDiv);
         messages.scrollTop = messages.scrollHeight;
       } catch (err) {
-        const data = await localFallback(q);
         loading.remove();
-        const meta = data.sources?.length ? `来源: ${data.sources.map(s => s.title || s.path).join(' | ')}` : '本地降级模式';
-        addMsg('bot', data.answer, meta);
+        addMsg('bot', `后端服务暂时不可用，请稍后再试。（${err.message}）`);
       }
     }
 

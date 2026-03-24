@@ -1,6 +1,6 @@
 {
   "name": "hexo-chathexo",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "ChatHexo Hexo plugin – AI chat assistant for your Hexo blog",
   "main": "index.js",
   "files": [
